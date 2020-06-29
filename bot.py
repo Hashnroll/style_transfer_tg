@@ -9,14 +9,6 @@ from wct import WCT
 
 
 TOKEN = os.environ['BOT_TOKEN']
-WEBHOOK_HOST = 'https://stylus-bot.herokuapp.com/'
-WEBHOOK_PATH = '/webhook/'
-WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
-
-WEBAPP_HOST = '0.0.0.0'
-WEBAPP_PORT = os.environ.get('PORT')
-
-
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 keyboard_markup = types.ReplyKeyboardMarkup()
@@ -66,5 +58,6 @@ async def handle_photo(message):
 
 
 if __name__ == '__main__':
-    executor.start_webhook(dispatcher=dp, webhook_path=WEBHOOK_PATH,
-                           host=WEBAPP_HOST, port=WEBAPP_PORT)
+    # executor.start_webhook(dispatcher=dp, webhook_path=WEBHOOK_PATH,
+    #                        host=WEBAPP_HOST, port=WEBAPP_PORT)
+    executor.start_polling(dp)
