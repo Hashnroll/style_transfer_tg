@@ -5,7 +5,9 @@ import torchvision.transforms.functional as transforms
 import numpy as np
 
 
-IMG_SIZE = 1024
+IMG_SIZE = 2048
+
+
 def load_img(path, new_size=IMG_SIZE):
     img = Image.open(path).convert('RGB')
     if new_size:
