@@ -17,6 +17,6 @@ def load_img(path, new_size=IMG_SIZE):
             new_shape = (int(new_size * (height / width)), new_size)
         else:
             new_shape = (new_size, int(new_size * (width / height)))
-        img = transforms.resize(img, new_shape, Image.BICUBIC)
+        img = transforms.resize(img, new_shape, Image.BILINEAR)
 
     return transforms.to_tensor(img)
