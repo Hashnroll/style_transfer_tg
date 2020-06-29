@@ -3,7 +3,7 @@ import torchvision.transforms.functional as transforms
 import numpy as np
 
 
-IMG_SIZE = 400
+IMG_SIZE = 512
 def load_img(path, new_size=IMG_SIZE):
     img = Image.open(path).convert('RGB')
     if new_size:
