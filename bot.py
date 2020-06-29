@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from aiogram import Bot, types
 from aiogram.dispatcher import Dispatcher
 from aiogram.utils import executor
@@ -45,6 +47,7 @@ async def all_msg_handler(message: types.Message):
 @dp.message_handler(text='Применить стиль')
 async def all_msg_handler(message: types.Message):
     await message.reply('Применяю стиль...', reply_markup=keyboard_markup)
+    await types.ChatActions.upload_photo()
     img_content = load_img('content.jpg').to('cuda')
     img_style = load_img('style.jpg', new_size=256).to('cuda')
     result = model(img_content.unsqueeze(0), img_style.unsqueeze(0))
@@ -58,6 +61,4 @@ async def handle_photo(message):
 
 
 if __name__ == '__main__':
-    # executor.start_webhook(dispatcher=dp, webhook_path=WEBHOOK_PATH,
-    #                        host=WEBAPP_HOST, port=WEBAPP_PORT)
     executor.start_polling(dp)

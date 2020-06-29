@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 from PIL import Image
 import torchvision.transforms.functional as transforms
 import numpy as np
