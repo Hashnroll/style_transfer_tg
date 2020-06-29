@@ -54,14 +54,14 @@ async def style_cmd_handler(message: types.Message) -> None:
 
 @dp.message_handler(text='Загрузить содержание')
 async def all_msg_handler(message: types.Message):
-    await message.reply('Хорошо! Отправьте мне картинку с содержанием.')
+    await message.reply('Хорошо! Отправьте мне картинку с содержанием.', reply_markup=None)
     global TYPE
     TYPE = 'content'
 
 
 @dp.message_handler(text='Загрузить стиль')
 async def all_msg_handler(message: types.Message):
-    await message.reply('Хорошо! Отправьте мне картинку со стилем.')
+    await message.reply('Хорошо! Отправьте мне картинку со стилем.', reply_markup=None)
     global TYPE
     TYPE = 'style'
 
@@ -81,9 +81,9 @@ async def all_msg_handler(message: types.Message):
 async def handle_photo(message):
     await message.photo[-1].download(f'{TYPE}.jpg')
     if TYPE == 'content':
-        await message.reply("Отлично, содержание загружено!", reply_markup=None)
+        await message.reply("Отлично, содержание загружено!", reply_markup=keyboard_markup)
     if TYPE == 'style':
-        await message.reply("Отлично, стиль загружен!", reply_markup=None)
+        await message.reply("Отлично, стиль загружен!", reply_markup=keyboard_markup)
 
 
 if __name__ == '__main__':
