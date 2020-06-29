@@ -81,9 +81,9 @@ async def all_msg_handler(message: types.Message):
 async def handle_photo(message):
     await message.photo[-1].download(f'{TYPE}.jpg')
     if TYPE == 'content':
-        await message.reply("Отлично, содержание загружено!")
+        await message.reply("Отлично, содержание загружено!", reply_markup=None)
     if TYPE == 'style':
-        await message.reply("Отлично, стиль загружен!")
+        await message.reply("Отлично, стиль загружен!", reply_markup=None)
 
 
 if __name__ == '__main__':
