@@ -57,7 +57,7 @@ async def all_msg_handler(message: types.Message):
 
 @dp.message_handler(content_types=['photo'])
 async def handle_photo(message):
-    await message.photo[-1].download(f"{TYPE}.jpg")
+    await message.photo[-1].download(TYPE + '.jpg')
 
 
 if __name__ == '__main__':
