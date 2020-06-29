@@ -47,8 +47,8 @@ async def style_cmd_handler(message: types.Message) -> None:
         await message.reply("Не могу применить данное значение стиля. "
                             "Оно должно быть от 0 до 100.", reply_markup=keyboard_markup)
     else:
-        old_alpha = model.alpha
-        model.alpha = new_alpha
+        old_alpha = int(model.alpha * 100)
+        model.alpha = new_alpha / 100
         await message.reply(f"Изменяю значение стиля с {old_alpha} на {new_alpha}.", reply_markup=keyboard_markup)
 
 
