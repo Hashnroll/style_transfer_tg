@@ -45,8 +45,8 @@ async def all_msg_handler(message: types.Message):
 @dp.message_handler(text='Применить стиль')
 async def all_msg_handler(message: types.Message):
     await message.reply('Применяю стиль...', reply_markup=keyboard_markup)
-    img_content = load_img('content.jpg')
-    img_style = load_img('style.jpg', new_size=256)
+    img_content = load_img('content.jpg').to('cuda')
+    img_style = load_img('style.jpg', new_size=256).to('cuda')
     result = model(img_content.unsqueeze(0), img_style.unsqueeze(0))
     save_image(result, 'result.jpg')
     await bot.send_photo(message.chat.id, open('result.jpg', 'rb'))
