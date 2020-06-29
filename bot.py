@@ -28,7 +28,7 @@ TYPE = None
 async def start_cmd_handler(message: types.Message) -> None:
     await message.reply("Привет, я StylusBot - могу перенести стиль с одной картинки на другую!\n"
                         "Для загрузки содержания и стиля воспользуйтесь меню. "
-                        "А затем нажмите кнопку 'Применить стиль'.\n"
+                        "А затем нажмите кнопку 'Применить стиль' (время ожидания ~10-15 секунд).\n"
                         "Дополнительные функции можно посмотреть с помощью /help.", reply_markup=keyboard_markup)
 
 
@@ -71,7 +71,7 @@ async def all_msg_handler(message: types.Message):
     await message.reply('Переношу стиль...', reply_markup=keyboard_markup)
     await types.ChatActions.upload_photo()
     img_content = load_img('content.jpg').to('cuda')
-    img_style = load_img('style.jpg', new_size=256).to('cuda')
+    img_style = load_img('style.jpg', new_size=512).to('cuda')
     result = model(img_content.unsqueeze(0), img_style.unsqueeze(0))
     save_image(result, 'result.jpg')
     await bot.send_photo(message.chat.id, open('result.jpg', 'rb'))
