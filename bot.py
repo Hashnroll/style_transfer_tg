@@ -10,7 +10,7 @@ from model import encoders, decoders
 from wct import WCT
 
 
-TOKEN = os.environ['BOT_TOKEN']
+TOKEN = '1008589830:AAG5Ry-feh_y_ejU27Qbp4KI637KZJ4iK6Q'
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 keyboard_markup = types.ReplyKeyboardMarkup()
