@@ -17,7 +17,7 @@ class WCT(nn.Module):
       c_mean = c_mean.unsqueeze(1).expand(c_size)
       feat_c = feat_c - c_mean
 
-      content_conv = (feat_c @ feat_c.t()).div(c_size[1] -  1) + \
+      content_conv = (feat_c @ feat_c.t()).div(c_size[1] - 1) + \
                       torch.eye(c_size[0]).to('cuda')
       _ , c_e, c_v = torch.svd(content_conv, some=False)
 
@@ -49,13 +49,15 @@ class WCT(nn.Module):
       target = target + s_mean.unsqueeze(1).expand_as(target)
       return target
 
+    cF = cF.double()
+    sF = sF.double()
     C = feat_c.size(0)
 
     target = whiten_and_color(feat_c.view(C, -1), feat_s.view(C, -1))
 
     target = target.view_as(feat_c)
     result = self.alpha * target + (1.0 - self.alpha) * feat_c
-    return result.unsqueeze(0)
+    return result.float().unsqueeze(0)
 
   def forward(self, img_content, img_style):
     with torch.no_grad():
