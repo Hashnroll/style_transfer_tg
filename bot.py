@@ -13,7 +13,7 @@ TOKEN = '1008589830:AAG5Ry-feh_y_ejU27Qbp4KI637KZJ4iK6Q'
 bot = Bot(token=TOKEN)
 dp = Dispatcher(bot)
 keyboard_markup = types.ReplyKeyboardMarkup()
-btns_text = ('Загрузить содержание', 'Загрузить стиль', 'Применить стиль')
+btns_text = ('Загрузить содержание', 'Загрузить стиль', 'Перенести стиль')
 for text in btns_text:
     keyboard_markup.row(types.KeyboardButton(text))
 
@@ -42,7 +42,7 @@ async def help_cmd_handler(message: types.Message) -> None:
 
 @dp.message_handler(commands=['style'])
 async def style_cmd_handler(message: types.Message) -> None:
-    new_alpha = int(message.text)
+    new_alpha = int(message.text.split()[-1])
     if new_alpha < 0 or new_alpha > 100:
         await message.reply("Не могу применить данное значение стиля. "
                             "Оно должно быть от 0 до 100.", reply_markup=keyboard_markup)
