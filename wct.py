@@ -49,8 +49,8 @@ class WCT(nn.Module):
       target = target + s_mean.unsqueeze(1).expand_as(target)
       return target
 
-    cF = cF.double()
-    sF = sF.double()
+    feat_c = feat_c.double()
+    feat_s = feat_s.double()
     C = feat_c.size(0)
 
     target = whiten_and_color(feat_c.view(C, -1), feat_s.view(C, -1))
