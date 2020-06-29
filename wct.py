@@ -1,7 +1,6 @@
 import torch
 import torch.nn as nn
 
-
 class WCT(nn.Module):
   def __init__(self, alpha, encoders, decoders):
     super().__init__()
@@ -16,8 +15,8 @@ class WCT(nn.Module):
       c_mean = c_mean.unsqueeze(1).expand(c_size)
       feat_c = feat_c - c_mean
 
-      content_conv = (feat_c @ feat_c.t()).div(c_size[1] - 1) + \
-                      torch.eye(c_size[0])
+      content_conv = (feat_c @ feat_c.t()).div(c_size[1] -  1) + \
+                      torch.eye(c_size[0]).to('cuda')
       _ , c_e, c_v = torch.svd(content_conv, some=False)
 
       k_c = c_size[0]
