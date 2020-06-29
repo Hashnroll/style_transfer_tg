@@ -5,7 +5,7 @@ import torchvision.transforms.functional as transforms
 import numpy as np
 
 
-IMG_SIZE = 1024
+IMG_SIZE = 1500
 
 
 def load_img(path, new_size=IMG_SIZE):
@@ -17,6 +17,6 @@ def load_img(path, new_size=IMG_SIZE):
             new_shape = (int(new_size * (height / width)), new_size)
         else:
             new_shape = (new_size, int(new_size * (width / height)))
-        img = transforms.resize(img, new_shape)
+        img = transforms.resize(img, new_shape, Image.BICUBIC)
 
     return transforms.to_tensor(img)
