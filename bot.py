@@ -61,14 +61,14 @@ async def style_cmd_handler(message: types.Message) -> None:
 
 @dp.message_handler(text='Загрузить содержание')
 async def all_msg_handler(message: types.Message):
-    message.reply('Хорошо! Отправьте мне картинку с содержанием.', reply_markup=None)
+    await message.reply('Хорошо! Отправьте мне картинку с содержанием.', reply_markup=None)
     global TYPE
     TYPE = 'content'
 
 
 @dp.message_handler(text='Загрузить стиль')
 async def all_msg_handler(message: types.Message):
-    message.reply('Хорошо! Отправьте мне картинку со стилем.', reply_markup=None)
+    await message.reply('Хорошо! Отправьте мне картинку со стилем.', reply_markup=None)
     global TYPE
     TYPE = 'style'
 
