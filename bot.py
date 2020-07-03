@@ -8,6 +8,7 @@ from torchvision.utils import save_image
 from model import encoders, decoders
 from wct import WCT
 from pathlib import Path
+import os
 
 TOKEN = '1008589830:AAG5Ry-feh_y_ejU27Qbp4KI637KZJ4iK6Q'
 bot = Bot(token=TOKEN)
@@ -34,9 +35,9 @@ async def start_cmd_handler(message: types.Message) -> None:
 
 @dp.message_handler(commands=['stop'])
 async def stop_cmd_handler(message: types.Message) -> None:
-    Path.unlink(f'{message.chat.id}/content.jpg')
-    Path.unlink(f'{message.chat.id}/style.jpg')
-    Path.unlink(f'{message.chat.id}/result.jpg')
+    os.remove(f'{message.chat.id}/content.jpg')
+    os.remove(f'{message.chat.id}/style.jpg')
+    os.remove(f'{message.chat.id}/result.jpg')
 
 
 @dp.message_handler(commands=['help'])
