@@ -240,9 +240,9 @@ dec5 = nn.Sequential(
 )
 dec5.load_state_dict(torch.load("vgg19/vgg19_5/feature_invertor_conv5_1.pth"))
 
-encoders = [enc5, enc4, enc3, enc2, enc1]
+encoders = [enc4, enc3, enc2, enc1]
 for enc in encoders:
   enc.to('cuda')
-decoders = [dec5, dec4, dec3, dec2, dec1]
+decoders = [dec4, dec3, dec2, dec1]
 for dec in decoders:
   dec.to('cuda')
