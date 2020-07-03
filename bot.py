@@ -83,10 +83,10 @@ async def all_msg_handler(message: types.Message):
         return
     await message.reply('Переношу стиль...', reply_markup=keyboard_markup)
     await types.ChatActions.upload_photo()
-    img_content = load_img(f'{message.from_user.id}/content.jpg').to('cuda')
-    img_style = load_img(f'{message.from_user.id}/style.jpg', img_size=768).to('cuda')
-    result = model(img_content.unsqueeze(0), img_style.unsqueeze(0))
-    save_image(result, f'{message.from_user.id}/result.jpg')
+    img_content = await load_img(f'{message.from_user.id}/content.jpg').to('cuda')
+    img_style = await load_img(f'{message.from_user.id}/style.jpg', img_size=768).to('cuda')
+    result = await model(img_content.unsqueeze(0), img_style.unsqueeze(0))
+    await save_image(result, f'{message.from_user.id}/result.jpg')
     await bot.send_photo(message.from_user.id, open(f'{message.from_user.id}/result.jpg', 'rb'))
 
 
