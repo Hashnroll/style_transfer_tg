@@ -27,17 +27,16 @@ TYPE = None
 
 @dp.message_handler(commands=['start'])
 async def start_cmd_handler(message: types.Message) -> None:
+    if os.path.isfile(f'{message.from_user.id}/content.jpg'):
+        os.remove(f'{message.from_user.id}/content.jpg')
+    if os.path.isfile(f'{message.from_user.id}/style.jpg'):
+      os.remove(f'{message.from_user.id}/style.jpg')
+    if os.path.isfile(f'{message.from_user.id}/result.jpg'):
+      os.remove(f'{message.from_user.id}/result.jpg')
     await message.reply("Привет, я StylusBot - могу перенести стиль с одной картинки на другую!\n"
                         "Для загрузки содержания и стиля воспользуйтесь меню. "
                         "А затем нажмите кнопку 'Применить стиль'.\n"
                         "Дополнительные функции можно посмотреть с помощью /help.", reply_markup=keyboard_markup)
-
-
-@dp.message_handler(commands=['stop'])
-async def stop_cmd_handler(message: types.Message) -> None:
-    os.remove(f'{message.from_user.id}/content.jpg')
-    os.remove(f'{message.from_user.id}/style.jpg')
-    os.remove(f'{message.from_user.id}/result.jpg')
 
 
 @dp.message_handler(commands=['help'])
