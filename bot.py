@@ -61,14 +61,14 @@ async def style_cmd_handler(message: types.Message) -> None:
 
 @dp.message_handler(text='Загрузить содержание')
 async def all_msg_handler(message: types.Message):
-    await message.reply('Хорошо! Отправьте мне картинку с содержанием.', reply_markup=None)
+    message.reply('Хорошо! Отправьте мне картинку с содержанием.', reply_markup=None)
     global TYPE
     TYPE = 'content'
 
 
 @dp.message_handler(text='Загрузить стиль')
 async def all_msg_handler(message: types.Message):
-    await message.reply('Хорошо! Отправьте мне картинку со стилем.', reply_markup=None)
+    message.reply('Хорошо! Отправьте мне картинку со стилем.', reply_markup=None)
     global TYPE
     TYPE = 'style'
 
@@ -76,18 +76,18 @@ async def all_msg_handler(message: types.Message):
 @dp.message_handler(text='Перенести стиль')
 async def all_msg_handler(message: types.Message):
     if not os.path.isfile(f'{message.from_user.id}/content.jpg'):
-        await message.reply('Загрузите картинку содержания', reply_markup=keyboard_markup)
+        message.reply('Загрузите картинку содержания', reply_markup=keyboard_markup)
         return
     elif not os.path.isfile(f'{message.from_user.id}/style.jpg'):
-        await message.reply('Загрузите картинку стиля', reply_markup=keyboard_markup)
+        message.reply('Загрузите картинку стиля', reply_markup=keyboard_markup)
         return
-    await message.reply('Переношу стиль...', reply_markup=keyboard_markup)
-    await types.ChatActions.upload_photo()
+    message.reply('Переношу стиль...', reply_markup=keyboard_markup)
+    types.ChatActions.upload_photo()
     img_content = load_img(f'{message.from_user.id}/content.jpg').to('cuda')
     img_style = load_img(f'{message.from_user.id}/style.jpg', img_size=768).to('cuda')
-    result = model(img_content.unsqueeze(0), img_style.unsqueeze(0))
+    result = await model(img_content.unsqueeze(0), img_style.unsqueeze(0))
     save_image(result, f'{message.from_user.id}/result.jpg')
-    await bot.send_photo(message.from_user.id, open(f'{message.from_user.id}/result.jpg', 'rb'))
+    bot.send_photo(message.from_user.id, open(f'{message.from_user.id}/result.jpg', 'rb'))
 
 
 @dp.message_handler(content_types=['photo'])
