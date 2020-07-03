@@ -34,10 +34,10 @@ async def start_cmd_handler(message: types.Message) -> None:
 
 
 @dp.message_handler(commands=['stop'])
-def stop_cmd_handler(message: types.Message) -> None:
-    os.remove(f'{message.chat.id}/content.jpg')
-    os.remove(f'{message.chat.id}/style.jpg')
-    os.remove(f'{message.chat.id}/result.jpg')
+async def stop_cmd_handler(message: types.Message) -> None:
+    os.remove(f'{message.from_user.id}/content.jpg')
+    os.remove(f'{message.from_user.id}/style.jpg')
+    os.remove(f'{message.from_user.id}/result.jpg')
 
 
 @dp.message_handler(commands=['help'])
@@ -78,17 +78,17 @@ async def all_msg_handler(message: types.Message):
 async def all_msg_handler(message: types.Message):
     await message.reply('Переношу стиль...', reply_markup=keyboard_markup)
     await types.ChatActions.upload_photo()
-    img_content = load_img(f'{message.chat.id}/content.jpg').to('cuda')
-    img_style = load_img(f'{message.chat.id}/style.jpg').to('cuda')
+    img_content = load_img(f'{message.from_user.id}/content.jpg').to('cuda')
+    img_style = load_img(f'{message.from_user.id}/style.jpg').to('cuda')
     result = model(img_content.unsqueeze(0), img_style.unsqueeze(0))
-    save_image(result, f'{message.chat.id}/result.jpg')
-    await bot.send_photo(message.chat.id, open(f'{message.chat.id}/result.jpg', 'rb'))
+    save_image(result, f'{message.from_user.id}/result.jpg')
+    await bot.send_photo(message.from_user.id, open(f'{message.from_user.id}/result.jpg', 'rb'))
 
 
 @dp.message_handler(content_types=['photo'])
 async def handle_photo(message):
-    Path(f'./{message.chat.id}').mkdir(parents=True, exist_ok=True)
-    await message.photo[-1].download(f'{message.chat.id}/{TYPE}.jpg')
+    Path(f'./{message.from_user.id}').mkdir(parents=True, exist_ok=True)
+    await message.photo[-1].download(f'{message.from_user.id}/{TYPE}.jpg')
     if TYPE == 'content':
         await message.reply("Отлично, содержание загружено!", reply_markup=keyboard_markup)
     if TYPE == 'style':
