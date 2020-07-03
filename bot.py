@@ -76,6 +76,12 @@ async def all_msg_handler(message: types.Message):
 
 @dp.message_handler(text='Перенести стиль')
 async def all_msg_handler(message: types.Message):
+    if not os.path.isfile(f'{message.from_user.id}/content.jpg'):
+        await message.reply('Загрузите картинку содержания', reply_markup=keyboard_markup)
+        return
+    elif not os.path.isfile(f'{message.from_user.id}/style.jpg'):
+        await message.reply('Загрузите картинку стиля', reply_markup=keyboard_markup)
+        return
     await message.reply('Переношу стиль...', reply_markup=keyboard_markup)
     await types.ChatActions.upload_photo()
     img_content = load_img(f'{message.from_user.id}/content.jpg').to('cuda')
