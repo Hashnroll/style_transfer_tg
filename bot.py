@@ -18,7 +18,7 @@ for text in btns_text:
     keyboard_markup.row(types.KeyboardButton(text))
 
 
-model = WCT(0.25, encoders, decoders)
+model = WCT(0.75, encoders, decoders)
 model.eval()
 
 TYPE = None
@@ -36,7 +36,7 @@ async def start_cmd_handler(message: types.Message) -> None:
 async def help_cmd_handler(message: types.Message) -> None:
     await message.reply("\\style X - изменить степень стилизации. "
                         "Чем больше X, тем больше внимания будет уделено стилю "
-                        "и меньше содержанию. X - от 0 до 100. Начальное значение X - 25.",
+                        "и меньше содержанию. X - от 0 до 100. Начальное значение X - 75.",
                         reply_markup=keyboard_markup)
 
 
@@ -70,7 +70,7 @@ async def all_msg_handler(message: types.Message):
 async def all_msg_handler(message: types.Message):
     await message.reply('Переношу стиль...', reply_markup=keyboard_markup)
     await types.ChatActions.upload_photo()
-    img_content = load_img(f'{message.chat.id}/content.jpg').to('cuda')
+    img_content = load_img(f'{message.chat.id}/content.jpg', new_size=512).to('cuda')
     img_style = load_img(f'{message.chat.id}/style.jpg', new_size=512).to('cuda')
     result = model(img_content.unsqueeze(0), img_style.unsqueeze(0))
     save_image(result, f'{message.chat.id}/result.jpg')
