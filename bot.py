@@ -74,7 +74,7 @@ async def all_msg_handler(message: types.Message):
     img_style = load_img(f'{message.chat.id}/style.jpg', new_size=512).to('cuda')
     result = model(img_content.unsqueeze(0), img_style.unsqueeze(0))
     save_image(result, f'{message.chat.id}/result.jpg')
-    await bot.send_photo(message.chat.id, open('result.jpg', 'rb'))
+    await bot.send_photo(message.chat.id, open(f'{message.chat.id}/result.jpg', 'rb'))
 
 
 @dp.message_handler(content_types=['photo'])
