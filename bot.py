@@ -84,7 +84,7 @@ async def all_msg_handler(message: types.Message):
     await message.reply('Переношу стиль...', reply_markup=keyboard_markup)
     await types.ChatActions.upload_photo()
     img_content = load_img(f'{message.from_user.id}/content.jpg').to('cuda')
-    img_style = load_img(f'{message.from_user.id}/style.jpg').to('cuda')
+    img_style = load_img(f'{message.from_user.id}/style.jpg', img_size=768).to('cuda')
     result = model(img_content.unsqueeze(0), img_style.unsqueeze(0))
     save_image(result, f'{message.from_user.id}/result.jpg')
     await bot.send_photo(message.from_user.id, open(f'{message.from_user.id}/result.jpg', 'rb'))
@@ -95,9 +95,9 @@ async def handle_photo(message):
     Path(f'./{message.from_user.id}').mkdir(parents=True, exist_ok=True)
     await message.photo[-1].download(f'{message.from_user.id}/{TYPE}.jpg')
     if TYPE == 'content':
-        await message.reply("Отлично, содержание загружено!", reply_markup=keyboard_markup)
+        await message.reply("Отлично, содержание загружено!")
     if TYPE == 'style':
-        await message.reply("Отлично, стиль загружен!", reply_markup=keyboard_markup)
+        await message.reply("Отлично, стиль загружен!"
 
 
 if __name__ == '__main__':
