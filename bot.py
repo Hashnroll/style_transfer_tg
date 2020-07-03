@@ -7,7 +7,7 @@ from utils import load_img
 from torchvision.utils import save_image
 from model import encoders, decoders
 from wct import WCT
-
+from pathlib import Path
 
 TOKEN = '1008589830:AAG5Ry-feh_y_ejU27Qbp4KI637KZJ4iK6Q'
 bot = Bot(token=TOKEN)
@@ -79,6 +79,7 @@ async def all_msg_handler(message: types.Message):
 
 @dp.message_handler(content_types=['photo'])
 async def handle_photo(message):
+    Path(f'./{message.chat.id}').mkdir(parents=True, exist_ok=True)
     await message.photo[-1].download(f'{message.chat.id}/{TYPE}.jpg')
     if TYPE == 'content':
         await message.reply("Отлично, содержание загружено!", reply_markup=keyboard_markup)
