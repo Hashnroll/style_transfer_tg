@@ -34,7 +34,7 @@ async def start_cmd_handler(message: types.Message) -> None:
 
 
 @dp.message_handler(commands=['stop'])
-async def stop_cmd_handler(message: types.Message) -> None:
+def stop_cmd_handler(message: types.Message) -> None:
     os.remove(f'{message.chat.id}/content.jpg')
     os.remove(f'{message.chat.id}/style.jpg')
     os.remove(f'{message.chat.id}/result.jpg')
