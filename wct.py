@@ -22,7 +22,7 @@ class WCT(nn.Module):
       _ , c_e, c_v = torch.svd(content_conv, some=False)
 
       k_c = c_size[0]
-      for i in range(c_size[0]):
+      for i in range(k_c):
           if c_e[i] < 0.00001:
               k_c = i
               break

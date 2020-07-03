@@ -32,6 +32,13 @@ async def start_cmd_handler(message: types.Message) -> None:
                         "Дополнительные функции можно посмотреть с помощью /help.", reply_markup=keyboard_markup)
 
 
+@dp.message_handler(commands=['stop'])
+async def stop_cmd_handler(message: types.Message) -> None:
+    Path.unlink(f'{message.chat.id}/content.jpg')
+    Path.unlink(f'{message.chat.id}/style.jpg')
+    Path.unlink(f'{message.chat.id}/result.jpg')
+
+
 @dp.message_handler(commands=['help'])
 async def help_cmd_handler(message: types.Message) -> None:
     await message.reply("\\style X - изменить степень стилизации. "
