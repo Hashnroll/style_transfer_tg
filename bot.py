@@ -97,7 +97,7 @@ async def handle_photo(message):
     if TYPE == 'content':
         await message.reply("Отлично, содержание загружено!")
     if TYPE == 'style':
-        await message.reply("Отлично, стиль загружен!"
+        await message.reply("Отлично, стиль загружен!")
 
 
 if __name__ == '__main__':
