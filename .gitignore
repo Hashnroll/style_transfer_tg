@@ -1,3 +1,5 @@
-*.jpg, *.jpeg, *.png
+*.jpg
+*.jpeg
+*.png
 .idea
 __pycache__
