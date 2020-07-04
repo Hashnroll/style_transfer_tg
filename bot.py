@@ -120,7 +120,7 @@ async def apply_cezanne_handler(callback_query: types.CallbackQuery):
     image = pre_process(image).unsqueeze(0).to('cuda')
 
     fake_image = model_gan(image)
-    save_image(fake_image.detach(), f'{chat_id}/result.png', normalize=True)
+    save_image(fake_image.detach(), f'{chat_id}/result.jpg', normalize=True)
     await bot.send_photo(chat_id, open(f'{chat_id}/result.jpg', 'rb'))
 
 
