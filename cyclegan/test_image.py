@@ -1,6 +1,6 @@
 import torch.utils.data.distributed
 
-from .cyclegan_pytorch import Generator
+from cyclegan.cyclegan_pytorch.models import Generator
 
 model = Generator().to('cuda')
 
